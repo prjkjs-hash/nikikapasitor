@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6d28d9">
+
+<title>Kapasitor Physics Lab | Valerina Nikita Sakul</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary: #B794F6;
+    --primary-dark: #9575CD;
+    --purple-light: #E6D6FF;
+
+    --bg: #FAF7FF;
+    --surface: #FFFFFF;
+    --surface2: #F3ECFF;
+
+    --text: #35234A;
+    --muted: #827493;
+
+    --border: rgba(183, 148, 246, 0.25);
+    --success: #65A882;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(13,7,24,.92);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 5%;
+}
+
+.nav-inner {
+    max-width: 1250px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 800;
+    font-size: 21px;
+}
+
+.logo span {
+    color: var(--purple-light);
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+.hero {
+    padding: 100px 6% 85px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 75% 30%, #5125a055, transparent 42%),
+        radial-gradient(ellipse at 10% 80%, #7c3aed22, transparent 35%);
+}
+
+.hero-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    align-items: center;
+    gap: 50px;
+}
+
+.badge {
+    display: inline-block;
+    border: 1px solid #a78bfa66;
+    color: #ddd6fe;
+    padding: 7px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+    margin-bottom: 24px;
+    background: #8b5cf622;
+}
+
+h1, h2, h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: clamp(40px, 6vw, 76px);
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+}
+
+.gradient-text {
+    background: linear-gradient(100deg,#c4b5fd,#a78bfa,#e9d5ff);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    color: var(--muted);
+    max-width: 580px;
+    margin-bottom: 28px;
+}
+
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg,#8b5cf6,#6d28d9);
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+    transition: .25s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px #8b5cf633;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    margin-left: 8px;
+}
+
+.hero-visual {
+    min-height: 350px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    background: linear-gradient(145deg,#211537,#10091e);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-visual::before {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: #8b5cf622;
+    filter: blur(40px);
+}
+
+.capacitor-art {
+    width: 220px;
+    height: 170px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.plate {
+    width: 22px;
+    height: 140px;
+    border-radius: 5px;
+    background: linear-gradient(90deg,#7c3aed,#ddd6fe,#8b5cf6);
+    box-shadow: 0 0 30px #a78bfa66;
+}
+
+.dielectric {
+    width: 65px;
+    height: 115px;
+    border: 1px dashed #c4b5fd99;
+    background: #8b5cf622;
+    display: grid;
+    place-items: center;
+    color: #ddd6fe;
+    font-size: 12px;
+    text-align: center;
+}
+
+.charge {
+    position: absolute;
+    top: 12px;
+    font-size: 24px;
+    color: #ddd6fe;
+}
+
+.charge.left { left: 30px; }
+.charge.right { right: 30px; }
+
+.art-caption {
+    position: absolute;
+    bottom: 24px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.stats {
+    max-width: 1100px;
+    margin: -25px auto 0;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+    padding: 0 20px;
+}
+
+.stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+    border-radius: 18px;
+}
+
+.stat strong {
+    display: block;
+    font-size: 25px;
+    color: var(--purple-light);
+}
+
+.stat span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+section {
+    padding: 85px 6%;
+    scroll-margin-top: 70px;
+}
+
+.section-inner {
+    max-width: 1150px;
+    margin: auto;
+}
+
+.section-head {
+    margin-bottom: 35px;
+}
+
+.eyebrow {
+    color: #c4b5fd;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+h2 {
+    font-size: clamp(28px,4vw,43px);
+    margin-bottom: 14px;
+}
+
+.section-head p {
+    color: var(--muted);
+    max-width: 700px;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 20px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 25px;
+    transition: .25s;
+}
+
+.card:hover {
+    border-color: #a78bfa66;
+    transform: translateY(-3px);
+}
+
+.card h3 {
+    font-size: 19px;
+    margin-bottom: 12px;
+}
+
+.card p, .card li {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.card ul {
+    padding-left: 18px;
+}
+
+.icon {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.formula {
+    margin: 18px 0;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #a78bfa33;
+    background: #8b5cf615;
+    text-align: center;
+    color: #ddd6fe;
+    font-family: 'Space Grotesk',sans-serif;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.small {
+    font-size: 11px !important;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.diagram {
+    background: #110a20;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.plates {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    margin: 30px auto;
+}
+
+.plates .metal {
+    width: 14px;
+    height: 130px;
+    background: linear-gradient(90deg,#8b5cf6,#ddd6fe);
+    border-radius: 4px;
+}
+
+.plates .insulator {
+    width: 85px;
+    height: 100px;
+    border: 1px dashed #c4b5fd;
+    display: grid;
+    place-items: center;
+    color: #c4b5fd;
+    font-size: 12px;
+}
+
+.mini-labels {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.type-symbol {
+    height: 75px;
+    display: grid;
+    place-items: center;
+    font-size: 36px;
+    color: #c4b5fd;
+    margin-bottom: 15px;
+}
+
+.calculator {
+    background: linear-gradient(145deg,#211537,#140c22);
+    border: 1px solid #a78bfa33;
+    border-radius: 22px;
+    padding: 28px;
+}
+
+.field {
+    margin-bottom: 18px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #ddd6fe;
+}
+
+input, select {
+    width: 100%;
+    border: 1px solid #a78bfa33;
+    border-radius: 10px;
+    background: #10091d;
+    color: white;
+    padding: 12px;
+    outline: none;
+}
+
+input:focus, select:focus {
+    border-color: #a78bfa;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 22px;
+    border-radius: 15px;
+    background: #8b5cf61b;
+    border: 1px solid #a78bfa33;
+}
+
+.result strong {
+    display: block;
+    font-size: 27px;
+    color: #ddd6fe;
+    overflow-wrap: anywhere;
+}
+
+.result span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.tab {
+    background: var(--surface);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.tab.active {
+    background: #6d28d9;
+    color: white;
+}
+
+.simulation-stage {
+    min-height: 240px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: #10091d;
+    padding: 24px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+.battery {
+    display: inline-block;
+    padding: 14px;
+    border: 2px solid #c4b5fd;
+    border-radius: 9px;
+    color: #ddd6fe;
+    margin: 10px;
+}
+
+.sim-plates {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    margin: 20px;
+    align-items: center;
+}
+
+.sim-plate {
+    width: 18px;
+    height: 100px;
+    border-radius: 4px;
+    background: linear-gradient(90deg,#6d28d9,#ddd6fe);
+    transition: .2s;
+}
+
+.electrons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    max-width: 150px;
+    justify-content: center;
+    color: #c4b5fd;
+}
+
+.progress {
+    height: 9px;
+    background: #302342;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 18px 0;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg,#6d28d9,#c4b5fd);
+    transition: width .1s;
+}
+
+input[type="range"] {
+    padding: 0;
+    accent-color: #a78bfa;
+}
+
+.quiz-option {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    margin: 9px 0;
+    border: 1px solid var(--border);
+    background: #10091d;
+    border-radius: 10px;
+    color: white;
+    text-align: left;
+    font-size: 13px;
+}
+
+.quiz-option:hover {
+    border-color: #a78bfa;
+}
+
+.quiz-option.correct {
+    border-color: #4ade80;
+    background: #14532d55;
+}
+
+.quiz-option.wrong {
+    border-color: #fb7185;
+    background: #88133755;
+}
+
+#quizFeedback {
+    margin-top: 15px;
+    color: #ddd6fe;
+    font-size: 13px;
+}
+
+footer {
+    padding: 45px 6%;
+    border-top: 1px solid var(--border);
+    background: #090512;
+}
+
+.footer-inner {
+    max-width: 1150px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+footer p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.back-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 43px;
+    height: 43px;
+    border-radius: 13px;
+    background: #6d28d9;
+    color: white;
+    border: 0;
+    z-index: 999;
+}
+
+@media(max-width:850px) {
+    .hero-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding-top: 65px;
+    }
+
+    .grid-3 {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+
+    .nav-links {
+        display: none;
+    }
+}
+
+@media(max-width:580px) {
+    .grid-2, .grid-3, .stats {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 60px 5%;
+    }
+
+    .hero {
+        padding: 60px 5%;
+    }
+
+    .hero-visual {
+        min-height: 290px;
+    }
+
+    .calculator {
+        padding: 19px;
+    }
+
+    .btn-outline {
+        margin: 10px 0 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a class="logo" href="#home">CAPA<span>LAB.</span></a>
+
+        <div class="nav-links">
+            <a href="#materi">Materi</a>
+            <a href="#struktur">Struktur</a>
+            <a href="#jenis">Jenis</a>
+            <a href="#rumus">Rumus</a>
+            <a href="#kalkulator">Kalkulator</a>
+            <a href="#simulasi">Simulasi</a>
+            <a href="#kuis">Kuis</a>
+        </div>
+    </div>
+</nav>
+
+<header class="hero" id="home">
+    <div class="hero-inner">
+        <div>
+            <span class="badge">✦ PHYSICS LEARNING EXPERIENCE</span>
+
+            <h1>
+                Mengenal<br>
+                <span class="gradient-text">Kapasitor</span>
+            </h1>
+
+            <p>
+                Pelajari bagaimana kapasitor menyimpan muatan listrik,
+                memahami rumusnya, mencoba kalkulator interaktif, dan
+                melihat penerapannya dalam kehidupan sehari-hari.
+            </p>
+
+            <a href="#materi" class="btn">Mulai Belajar ↗</a>
+            <a href="#simulasi" class="btn btn-outline">Coba Simulasi</a>
+        </div>
+
+        <div class="hero-visual">
+            <div class="capacitor-art">
+                <span class="charge left">+</span>
+                <div class="plate"></div>
+                <div class="dielectric">Bahan<br>dielektrik</div>
+                <div class="plate"></div>
+                <span class="charge right">−</span>
+            </div>
+            <div class="art-caption">
+                CAPACITOR • ELECTRIC ENERGY STORAGE
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="stats">
+    <div class="stat">
+        <strong>01</strong>
+        <span>Konsep Dasar</span>
+    </div>
+    <div class="stat">
+        <strong>02</strong>
+        <span>Rumus & Kalkulator</span>
+    </div>
+    <div class="stat">
+        <strong>03</strong>
+        <span>Simulasi Interaktif</span>
+    </div>
+</div>
+
+<!-- MATERI -->
+
+<section id="materi">
+    <div class="section-inner">
+        <div class="section-head">
+            <div class="eyebrow">01 / INTRODUCTION</div>
+            <h2>Apa Itu Kapasitor?</h2>
+            <p>
+                Mengenal komponen elektronik yang berperan penting
+                dalam berbagai perangkat modern.
+            </p>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <div class="icon">⚡</div>
+                <h3>Pengertian Kapasitor</h3>
+                <p>
+                    Kapasitor adalah komponen elektronika pasif yang
+                    dapat menyimpan muatan dan energi listrik dalam
+                    medan listrik. Kapasitor umumnya terdiri dari dua
+                    konduktor yang dipisahkan oleh bahan isolator
+                    bernama dielektrik.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🔋</div>
+                <h3>Fungsi Kapasitor</h3>
+                <ul>
+                    <li>Menyimpan dan melepaskan energi listrik.</li>
+                    <li>Membantu penyaringan sinyal pada rangkaian.</li>
+                    <li>Mengurangi perubahan tegangan sesaat.</li>
+                    <li>Membantu pengaturan waktu dalam rangkaian.</li>
+                    <li>Mendukung kerja motor listrik tertentu.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="icon">📐</div>
+                <h3>Apa Itu Kapasitansi?</h3>
+                <p>
+                    Kapasitansi adalah ukuran kemampuan kapasitor
+                    menyimpan muatan listrik pada beda potensial
+                    tertentu. Semakin besar kapasitansi, semakin besar
+                    muatan yang dapat disimpan pada tegangan yang sama.
+                </p>
+
+                <div class="formula">C = Q / V</div>
+            </div>
+
+            <div class="card">
+                <div class="icon">🧪</div>
+                <h3>Bahan Dielektrik</h3>
+                <p>
+                    Dielektrik merupakan bahan isolator yang berada
+                    di antara dua konduktor. Contohnya udara, keramik,
+                    mika, kertas, dan film plastik. Jenis bahan ini
+                    memengaruhi kapasitansi kapasitor.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STRUKTUR -->
+
+<section id="struktur" style="background:#11091e">
+    <div class="section-inner">
+        <div class="section-head">
+            <div class="eyebrow">02 / ANATOMY</div>
+            <h2>Struktur Dasar Kapasitor</h2>
+            <p>
+                Struktur dasar kapasitor keping sejajar terdiri dari
+                dua pelat konduktor dan satu lapisan dielektrik.
+            </p>
+        </div>
+
+        <div class="grid-2">
+            <div class="diagram">
+                <h3>Ilustrasi Kapasitor</h3>
+
+                <div class="plates">
+                    <div>
+                        <div style="color:#c4b5fd;margin-bottom:8px">+</div>
+                        <div class="metal"></div>
+                        <div style="color:#c4b5fd;margin-top:8px">+Q</div>
+                    </div>
+
+                    <div class="insulator">Dielektrik</div>
+
+                    <div>
+                        <div style="color:#dab5fd;margin-bottom:8px">−</div>
+                        <div class="metal"></div>
+                        <div style="color:#c4b5fd;margin-top:8px">−Q</div>
+                    </div>
+                </div>
+
+                <div class="mini-labels">
+                    <span>Pelat positif</span>
+                    <span>Bahan isolator</span>
+                    <span>Pelat negatif</span>
+                </div>
+
+                <p class="small muted" style="margin-top:20px">
+                    Ilustrasi konseptual, bukan ukuran sebenarnya.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Bagian-Bagian Kapasitor</h3>
+
+                <p><b>1. Pelat konduktor</b></p>
+                <p>
+                    Dua bagian penghantar yang menampung muatan
+                    dengan tanda berlawanan ketika kapasitor diisi.
+                </p>
+
+                <br>
+
+                <p><b>2. Bahan dielektrik</b></p>
+                <p>
+                    Bahan isolator yang memisahkan kedua pelat
+                    dan memengaruhi kemampuan menyimpan muatan.
+                </p>
+
+                <br>
+
+                <p><b>3. Terminal</b></p>
+                <p>
+                    Bagian penghubung kapasitor dengan rangkaian listrik.
+                    Pada kapasitor polar, terminal positif dan negatif
+                    harus diperhatikan.
+                </p>
+
+                <br>
+
+                <p><b>4. Casing atau pembungkus</b></p>
+                <p>
+                    Melindungi bagian dalam kapasitor dari pengaruh
+                    lingkungan dan kerusakan fisik.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- JENIS -->
+
+<section id="jenis">
+    <div class="section-inner">
+        <div class="section-head">
+            <div class="eyebrow">03 / COMPONENTS</div>
+            <h2>Jenis-Jenis Kapasitor</h2>
+            <p>
+                Setiap jenis kapasitor mempunyai karakteristik dan
+                penggunaan yang berbeda.
+            </p>
+        </div>
+
+        <div class="grid-3">
+            <div class="card">
+                <div class="type-symbol">▤</div>
+                <h3>Kapasitor Keramik</h3>
+                <p>
+                    Menggunakan bahan keramik sebagai dielektrik.
+                    Umum digunakan untuk penyaringan gangguan dan
+                    rangkaian elektronik berfrekuensi tinggi.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="type-symbol">▥</div>
+                <h3>Kapasitor Elektrolit</h3>
+                <p>
+                    Memiliki kapasitansi relatif besar dan umumnya
+                    mempunyai polaritas positif serta negatif.
+                    Banyak digunakan pada penyaring catu daya.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="type-symbol">▥</div>
+                <h3>Kapasitor Film</h3>
+                <p>
+                    Menggunakan lapisan film plastik sebagai
+                    dielektrik. Digunakan pada berbagai rangkaian
+                    elektronik dan aplikasi pengolahan sinyal.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="type-symbol">◫</div>
+                <h3>Kapasitor Tantalum</h3>
+                <p>
+                    Jenis kapasitor elektrolit yang menggunakan
+                    tantalum. Umumnya berukuran kecil dengan
+                    kapasitansi relatif besar.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="type-symbol">⟳</div>
+                <h3>Kapasitor Variabel</h3>
+                <p>
+                    Nilai kapasitansinya dapat diubah secara mekanis.
+                    Digunakan pada beberapa rangkaian penyetelan
+                    frekuensi radio.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="type-symbol">▱</div>
+                <h3>Kapasitor Mika</h3>
+                <p>
+                    Menggunakan mika sebagai dielektrik.
+                    Dikenal karena kestabilannya dan digunakan
+                    pada aplikasi tertentu yang membutuhkan
+                    karakteristik listrik stabil.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- RUMUS -->
+
+<section id="rumus" style="background:#11091e">
+    <div class="section-inner">
+        <div class="section-head">
+            <div class="eyebrow">04 / FORMULA</div>
+            <h2>Rumus-Rumus Kapasitor</h2>
+            <p>
+                Pelajari rumus dasar untuk menghitung kapasitansi,
+                muatan, energi, dan rangkaian kapasitor.
+            </p>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>01. Kapasitansi</h3>
+                <div class="formula">C = Q / V</div>
+                <p>C = kapasitansi (F)</p>
+                <p>Q = muatan listrik (C)</p>
+                <p>V = tegangan (V)</p>
+            </div>
+
+            <div class="card">
+                <h3>02. Muatan Listrik</h3>
+                <div class="formula">Q = C × V</div>
+                <p>Digunakan untuk menghitung muatan yang tersimpan.</p>
+            </div>
+
+            <div class="card">
+                <h3>03. Energi Kapasitor</h3>
+                <div class="formula">E = ½ C V²</div>
+                <p>E = energi (joule)</p>
+                <p>C = kapasitansi (farad)</p>
+                <p>V = tegangan (volt)</p>
+            </div>
+
+            <div class="card">
+                <h3>04. Kapasitor Keping Sejajar</h3>
+                <div class="formula">C = ε A / d</div>
+                <p>ε = permitivitas bahan</p>
+                <p>A = luas keping (m²)</p>
+                <p>d = jarak antarkeping (m)</p>
+            </div>
+
+            <div class="card">
+                <h3>05. Rangkaian Paralel</h3>
+                <div class="formula">Cₜ = C₁ + C₂ + ...</div>
+                <p>
+                    Kapasitansi total merupakan jumlah kapasitansi
+                    semua kapasitor yang dipasang paralel.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>06. Rangkaian Seri</h3>
+                <div class="formula">1/Cₜ = 1/C₁ + 1/C₂ + ...</div>
+                <p>
+                    Untuk dua kapasitor seri, dapat digunakan
+                    bentuk sederhana:
+                </p>
+                <div class="formula">Cₜ = C₁C₂ / (C₁ + C₂)</div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:20px">
+            <h3>Konversi Satuan Kapasitansi</h3>
+
+            <div class="grid-3" style="margin-top:20px">
+                <div>
+                    <div class="formula">1 mF</div>
+                    <p>10⁻³ F</p>
+                </div>
+
+                <div>
+                    <div class="formula">1 µF</div>
+                    <p>10⁻⁶ F</p>
+                </div>
+
+                <div>
+                    <div class="formula">1 nF</div>
+                    <p>10⁻⁹ F</p>
+                </div>
+
+                <div>
+                    <div class="formula">1 pF</div>
+                    <p>10⁻¹² F</p>
+                </div>
+
+                <div>
+                    <div class="formula">1 µF</div>
+                    <p>1.000 nF</p>
+                </div>
+
+                <div>
+                    <div class="formula">1 nF</div>
+                    <p>1.000 pF</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTOH SOAL -->
+
+<section id="contoh">
+    <div class="section-inner">
+        <div class="section-head">
+            <div class="eyebrow">05 / EXAMPLE</div>
+            <h2>Contoh Soal dan Pembahasan</h2>
+            <p>
+                Perhatikan contoh berikut untuk memahami penggunaan
+                rumus kapasitor dalam perhitungan fisika.
+            </p>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Soal 1 — Menghitung Muatan</h3>
+
+                <p>
+                    Sebuah kapasitor memiliki kapasitansi 20 µF
+                    dan dihubungkan ke sumber tegangan 12 V.
+                    Hitung muatan yang tersimpan!
+                </p>
+
+                <br>
+
+                <p><b>Diketahui:</b></p>
+                <p>C = 20 µF = 20 × 10⁻⁶ F</p>
+                <p>V = 12 V</p>
+
+                <div class="formula">Q = C × V</div>
+
+                <p>Q = 20 × 10⁻⁶ × 12</p>
+                <p>Q = 240 × 10⁻⁶ C</p>
+
+                <div class="result">
+                    <span>Jawaban</span>
+                    <strong>240 µC</strong>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Soal 2 — Menghitung Energi</h3>
+
+                <p>
+                    Sebuah kapasitor 10 µF diberi tegangan 100 V.
+                    Berapakah energi yang tersimpan?
+                </p>
+
+                <br>
+
+                <p><b>Diketahui:</b></p>
+                <p>C = 10 × 10⁻⁶ F</p>
+                <p>V = 100 V</p>
+
+                <div class="formula">E = ½ C V²</div>
+
+                <p>E = ½ × 10 × 10⁻⁶ × 100²</p>
+                <p>E = 0,05 J</p>
+
+                <div class="result">
+                    <span>Jawaban</span>
+                    <strong>0,05 Joule</strong>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Soal 3 — Rangkaian Paralel</h3>
+
+                <p>
+                    Dua kapasitor 4 µF dan 6 µF dirangkai paralel.
+                    Hitung kapasitansi totalnya!
+                </p>
+
+                <div class="formula">Cₜ = C₁ + C₂</div>
+
+                <p>Cₜ = 4 + 6</p>
+
+                <div class="result">
+                    <span>Jawaban</span>
+                    <strong>10 µF</strong>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Soal 4 — Rangkaian Seri</h3>
+
+                <p>
+                    Kapasitor 6 µF dan 3 µF dirangkai seri.
+                    Berapakah kapasitansi totalnya?
+                </p>
+
+                <div class="formula">
+                    Cₜ = (C₁ × C₂) / (C₁ + C₂)
+                </div>
+
+                <p>Cₜ = (6 × 3) / (6 + 3)</p>
+                <p>Cₜ = 18 / 9</p>
+
+                <div class="result">
+                    <span>Jawaban</span>
+                    <strong>2 µF</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- KALKULATOR -->
+
+<section id="kalkulator" style="background:#11091e">
+    <div class="section-inner">
+        <div class="section-head">
+            <div class="eyebrow">06 / CALCULATOR</div>
+            <h2>Kalkulator Kapasitor</h2>
+            <p>
+                Masukkan angka untuk menghitung kapasitansi,
+                muatan, energi, atau konversi satuan.
+            </p>
+        </div>
+
+        <div class="grid-2">
+            <div class="calculator">
+                <h3>Kalkulator Fisika</h3>
+
+                <div class="field">
+                    <label for="calcMode">Pilih perhitungan</label>
+                    <select id="calcMode" onchange="updateCalcMode()">
+                        <option value="charge">Muatan listrik (Q = CV)</option>
+                        <option value="capacitance">Kapasitansi (C = Q/V)</option>
+                        <option value="energy">Energi (E = ½CV²)</option>
+                        <option value="series">Dua kapasitor seri</option>
+                        <option value="parallel">Dua kapasitor paralel</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label id="labelA" for="inputA">Kapasitansi</label>
+                    <input type="number" id="inputA" value="10" step="any">
+                </div>
+
+                <div class="field">
+                    <label id="labelB" for="inputB">Tegangan</label>
+                    <input type="number" id="inputB" value="12" step="any">
+                </div>
+
+                <div class="field" id="fieldC" style="display:none">
+                    <label for="inputC">Kapasitor kedua</label>
+                    <input type="number" id="inputC" value="20" step="any">
+                </div>
+
+                <button class="btn" onclick="calculate()">Hitung Sekarang ↗</button>
+
+                <div class="result" aria-live="polite">
+                    <span>Hasil Perhitungan</span>
+                    <strong id="calcResult">120 µC</strong>
+                    <p id="calcExplanation" class="small" style="margin-top:10px">
+                        Q = C × V
+                    </p>
+                </div>
+            </div>
+
+            <div class="calculator">
+                <h3>Konverter Satuan</h3>
+
+                <div class="field">
+                    <label for="unitValue">Nilai kapasitansi</label>
+                    <input type="number" id="unitValue" value="1" step="any">
+                </div>
+
+                <div class="field">
+                    <label for="unitFrom">Satuan awal</label>
+                    <select id="unitFrom">
+                        <option value="1">Farad (F)</option>
+                        <option value="1e-3">Millifarad (mF)</option>
+                        <option value="1e-6" selected>Mikrofarad (µF)</option>
+                        <option value="1e-9">Nanofarad (nF)</option>
+                        <option value="1e-12">Pikofarad (pF)</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="unitTo">Konversi ke</label>
+                    <select id="unitTo">
+                        <option value="1">Farad (F)</option>
+                        <option value="1e-3">Millifarad (mF)</option>
+                        <option value="1e-6">Mikrofarad (µF)</option>
+                        <option value="1e-9" selected>Nanofarad (nF)</option>
+                        <option value="1e-12">Pikofarad (pF)</option>
+                    </select>
+                </div>
+
+                <button class="btn" onclick="convertUnit()">Konversi Satuan ↗</button>
+
+                <div class="result" aria-live="polite">
+                    <span>Hasil Konversi</span>
+                    <strong id="unitResult">1.000 nF</strong>
+                    <p id="unitExplanation" class="small" style="margin-top:10px">
+                        1 µF = 1.000 nF
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SIMULASI -->
+
+<section id="simulasi">
+    <div class="section-inner">
+        <div class="section-head">
+            <div class="eyebrow">07 / INTERACTIVE LAB</div>
+            <h2>Simulasi Kapasitor</h2>
+            <p>
+                Ubah nilai tegangan dan kapasitansi untuk melihat
+                pengaruhnya terhadap muatan dan energi kapasitor.
+                Simulasi ini bersifat edukatif.
+            </p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="setSim('charge',this)">
+                Pengisian
+            </button>
+
+            <button class="tab" onclick="setSim('discharge',this)">
+                Pengosongan
+            </button>
+
+            <button class="tab" onclick="setSim('life',this)">
+                Kehidupan Sehari-hari
+            </button>
+        </div>
+
+        <div class="grid-2">
+            <div class="calculator">
+                <h3>Kontrol Simulasi</h3>
+
+                <div class="field">
+                    <label for="simVoltage">
+                        Tegangan: <span id="voltageText">12</span> V
+                    </label>
+
+                    <input type="range" id="simVoltage"
+                           min="1" max="24" value="12"
+                           oninput="updateSimulation()">
+                </div>
+
+                <div class="field">
+                    <label for="simCap">
+                        Kapasitansi: <span id="capText">100</span> µF
+                    </label>
+
+                    <input type="range" id="simCap"
+                           min="10" max="1000" value="100" step="10"
+                           oninput="updateSimulation()">
+                </div>
+
+                <div class="field">
+                    <label for="simProgress">
+                        Tingkat pengisian
+                    </label>
+
+                    <input type="range" id="simProgress"
+                           min="0" max="100" value="0"
+                           oninput="manualProgress()">
+                </div>
+
+                <div class="progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+                <div style="display:flex;gap:10px;flex-wrap:wrap">
+                    <button class="btn" onclick="startSimulation()">
+                        ▶ Mulai
+                    </button>
+
+                    <button class="btn btn-outline" onclick="pauseSimulation()">
+                        Ⅱ Jeda
+                    </button>
+
+                    <button class="btn btn-outline" onclick="resetSimulation()">
+                        ↺ Ulangi
+                    </button>
+                </div>
+
+                <p class="small muted" style="margin-top:15px">
+                    Simulasi menggunakan model pengisian ideal.
+                    Kecepatan animasi bukan skala waktu nyata.
+                </p>
+            </div>
+
+            <div class="simulation-stage">
+                <div id="simVisual">
+                    <div class="battery">Sumber Tegangan</div>
+
+                    <div class="sim-plates">
+                        <div>
+                            <div style="color:#c4b5fd">+</div>
+                            <div class="sim-plate" id="platePositive"></div>
+                        </div>
+
+                        <div style="color:#c4b5fd;font-size:24px">
+                            ⚡
+                        </div>
+
+                        <div>
+                            <div style="color:#c4b5fd">−</div>
+                            <div class="sim-plate" id="plateNegative"></div>
+                        </div>
+                    </div>
+
+                    <div class="electrons" id="electrons"></div>
+
+                    <p id="simStatus" style="margin-top:15px">
+                        Kapasitor belum terisi.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-3" style="margin-top:20px">
+            <div class="stat">
+                <strong id="simCharge">0 µC</strong>
+                <span>Muatan pada kondisi simulasi</span>
+            </div>
+
+            <div class="stat">
+                <strong id="simEnergy">0 mJ</strong>
+                <span>Energi pada kondisi simulasi</span>
+            </div>
+
+            <div class="stat">
+                <strong id="simVoltageResult">0 V</strong>
+                <span>Tegangan kapasitor</span>
+            </div>
+        </div>
+
+        <div id="lifePanel" class="card" style="margin-top:25px;display:none">
+            <h3>Kapasitor dalam Kehidupan Sehari-hari</h3>
+
+            <div class="grid-3" style="margin-top:20px">
+                <div>
+                    <div class="icon">📷</div>
+                    <h3>Flash Kamera</h3>
+                    <p>
+                        Kapasitor dapat menyimpan energi lalu
+                        melepaskannya dengan cepat untuk membantu
+                        menghasilkan kilatan cahaya.
+                    </p>
+                </div>
+
+                <div>
+                    <div class="icon">🔌</div>
+                    <h3>Adaptor dan Catu Daya</h3>
+                    <p>
+                        Kapasitor membantu mengurangi perubahan
+                        tegangan setelah proses penyearahan listrik.
+                    </p>
+                </div>
+
+                <div>
+                    <div class="icon">🌀</div>
+                    <h3>Motor Listrik</h3>
+                    <p>
+                        Jenis kapasitor tertentu membantu proses
+                        pengasutan atau pengoperasian motor listrik AC.
+                    </p>
+                </div>
+
+                <div>
+                    <div class="icon">🔊</div>
+                    <h3>Perangkat Audio</h3>
+                    <p>
+                        Kapasitor dapat digunakan untuk menyaring
+                        atau memisahkan komponen frekuensi sinyal.
+                    </p>
+                </div>
+
+                <div>
+                    <div class="icon">📱</div>
+                    <h3>Perangkat Elektronik</h3>
+                    <p>
+                        Kapasitor kecil membantu penyaringan
+                        gangguan dan menjaga kestabilan tegangan
+                        pada berbagai rangkaian.
+                    </p>
+                </div>
+
+                <div>
+                    <div class="icon">📻</div>
+                    <h3>Rangkaian Penala</h3>
+                    <p>
+                        Kapasitor variabel dapat membantu mengubah
+                        frekuensi resonansi pada rangkaian tertentu.
+                    </p>
+                </div>
+            </div>
+
+            <p class="small muted" style="margin-top:20px">
+                Catatan: perangkat berbeda dapat menggunakan jenis
+                dan konfigurasi kapasitor yang berbeda.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- KUIS -->
+
+<section id="kuis" style="background:#11091e">
+    <div class="section-inner">
+        <div class="section-head">
+            <div class="eyebrow">08 / KNOWLEDGE TEST</div>
+            <h2>Uji Pemahamanmu</h2>
+            <p>
+                Jawab lima pertanyaan berikut untuk menguji pemahaman
+                tentang kapasitor.
+            </p>
+        </div>
+
+        <div class="card" style="max-width:800px">
+            <div style="display:flex;justify-content:space-between;gap:15px">
+                <span class="muted small" id="quizProgress">Pertanyaan 1 dari 5</span>
+                <span class="muted small" id="quizScore">Skor: 0</span>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" id="quizBar"></div>
+            </div>
+
+            <h3 id="quizQuestion" style="margin:25px 0 15px"></h3>
+
+            <div id="quizOptions"></div>
+
+            <div id="quizFeedback" aria-live="polite"></div>
+
+            <button class="btn" id="nextQuestion"
+                    onclick="nextQuiz()" style="margin-top:20px;display:none">
+                Pertanyaan Berikutnya →
+            </button>
+
+            <button class="btn" id="restartQuiz"
+                    onclick="restartQuiz()" style="margin-top:20px;display:none">
+                Ulangi Kuis ↺
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- KESIMPULAN -->
+
+<section id="kesimpulan">
+    <div class="section-inner">
+        <div class="section-head">
+            <div class="eyebrow">09 / SUMMARY</div>
+            <h2>Kesimpulan</h2>
+        </div>
+
+        <div class="card">
+            <p>
+                Kapasitor adalah komponen elektronika yang menyimpan
+                muatan dan energi dalam medan listrik. Kapasitansi
+                dinyatakan dalam farad dan bergantung pada karakteristik
+                fisik serta bahan dielektriknya.
+            </p>
+
+            <br>
+
+            <p>
+                Hubungan antara muatan, kapasitansi, dan tegangan
+                dirumuskan dengan Q = CV. Energi yang tersimpan
+                dapat dihitung menggunakan E = ½CV². Dalam rangkaian,
+                kapasitor dapat disusun seri maupun paralel.
+            </p>
+
+            <br>
+
+            <p>
+                Memahami prinsip kapasitor membantu kita mengenali
+                cara kerja berbagai perangkat elektronik di sekitar
+                kita.
+            </p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            <div class="logo">CAPA<span>LAB.</span></div>
+            <p style="margin-top:10px">
+                Website pembelajaran fisika interaktif.
+            </p>
+        </div>
+
+        <div>
+            <p>Pengembang</p>
+            <h3 style="margin-top:5px">Valerina Nikita Sakul</h3>
+            <p style="margin-top:10px">
+                © <span id="year"></span> • Physics Learning Project
+            </p>
+        </div>
+    </div>
+</footer>
+
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+        aria-label="Kembali ke atas">↑</button>
+
+<script>
+/* =========================================
+   KALKULATOR KAPASITOR
+========================================= */
+
+const $ = id => document.getElementById(id);
+
+function formatNumber(value, digits = 6) {
+    if (!Number.isFinite(value)) return "Tidak valid";
+    return value.toLocaleString("id-ID", {
+        maximumFractionDigits: digits
+    });
+}
+
+function updateCalcMode() {
+    const mode = $("calcMode").value;
+
+    $("fieldC").style.display =
+        ["series", "parallel"].includes(mode) ? "block" : "none";
+
+    const labels = {
+        charge: ["Kapasitansi (µF)", "Tegangan (V)"],
+        capacitance: ["Muatan (µC)", "Tegangan (V)"],
+        energy: ["Kapasitansi (µF)", "Tegangan (V)"],
+        series: ["Kapasitor pertama (µF)", "Tidak digunakan"],
+        parallel: ["Kapasitor pertama (µF)", "Tidak digunakan"]
+    };
+
+    $("labelA").textContent = labels[mode][0];
+    $("labelB").textContent = labels[mode][1];
+
+    $("inputB").disabled = ["series", "parallel"].includes(mode);
+
+    if (["series", "parallel"].includes(mode)) {
+        $("inputB").value = 0;
+    } else {
+        $("inputB").disabled = false;
+
+        if (Number($("inputB").value) === 0) {
+            $("inputB").value = 12;
+        }
+    }
+
+    calculate();
+}
+
+function calculate() {
+    const mode = $("calcMode").value;
+    const a = Number($("inputA").value);
+    const b = Number($("inputB").value);
+    const c = Number($("inputC").value);
+
+    if (!Number.isFinite(a) || a < 0 ||
+        !Number.isFinite(b) || b < 0 ||
+        !Number.isFinite(c) || c < 0) {
+        $("calcResult").textContent = "Periksa input";
+        $("calcExplanation").textContent =
+            "Masukkan angka yang valid dan tidak negatif.";
+        return;
+    }
+
+    let result;
+    let explanation;
+
+    if (mode === "charge") {
+        result = a * b;
+        explanation = `Q = ${a} µF × ${b} V = ${formatNumber(result)} µC`;
+        $("calcResult").textContent = formatNumber(result) + " µC";
+
+    } else if (mode === "capacitance") {
+        if (b === 0) {
+            $("calcResult").textContent = "Tegangan tidak boleh 0";
+            $("calcExplanation").textContent = "Pembagian dengan nol tidak terdefinisi.";
+            return;
+        }
+
+        result = a / b;
+        explanation = `C = ${a} µC / ${b} V`;
+        $("calcResult").textContent = formatNumber(result) + " µF";
+
+    } else if (mode === "energy") {
+        result = 0.5 * a * 1e-6 * b * b;
+        explanation = `E = ½ × ${a} µF × (${b} V)²`;
+        $("calcResult").textContent =
+            formatNumber(result * 1000) + " mJ";
+
+    } else if (mode === "series") {
+        result = (a + c === 0) ? 0 : (a * c) / (a + c);
+        explanation = `Cₜ = (${a} × ${c}) / (${a} + ${c})`;
+        $("calcResult").textContent = formatNumber(result) + " µF";
+
+    } else {
+        result = a + c;
+        explanation = `Cₜ = ${a} + ${c}`;
+        $("calcResult").textContent = formatNumber(result) + " µF";
+    }
+
+    $("calcExplanation").textContent = explanation;
+}
+
+["inputA", "inputB", "inputC"].forEach(id => {
+    $(id).addEventListener("input", calculate);
+});
+
+/* =========================================
+   KONVERTER SATUAN
+========================================= */
+
+function convertUnit() {
+    const value = Number($("unitValue").value);
+    const from = Number($("unitFrom").value);
+    const to = Number($("unitTo").value);
+
+    if (!Number.isFinite(value) || value < 0) {
+        $("unitResult").textContent = "Input tidak valid";
+        $("unitExplanation").textContent =
+            "Masukkan nilai nol atau lebih.";
+        return;
+    }
+
+    const farads = value * from;
+    const converted = farads / to;
+
+    const unitNames = {
+        "1": "F",
+        "0.001": "mF",
+        "0.000001": "µF",
+        "1e-7": "µF",
+        "1e-9": "nF",
+        "1e-12": "pF"
+    };
+
+    const fromName = $("unitFrom").selectedOptions[0].text;
+    const toName = $("unitTo").selectedOptions[0].text;
+
+    $("unitResult").textContent =
+        formatNumber(converted, 9) + " " + toName.match(/\((.*?)\)/)[1];
+
+    $("unitExplanation").textContent =
+        `${formatNumber(value)} ${fromName.match(/\((.*?)\)/)[1]} = ` +
+        `${formatNumber(converted, 9)} ${toName.match(/\((.*?)\)/)[1]}`;
+}
+
+$("unitValue").addEventListener("input", convertUnit);
+$("unitFrom").addEventListener("change", convertUnit);
+$("unitTo").addEventListener("change", convertUnit);
+
+/* =========================================
+   SIMULASI PENGISIAN DAN PENGOSONGAN
+========================================= */
+
+let simMode = "charge";
+let simValue = 0;
+let simTimer = null;
+let lastFrame = 0;
+
+function setSim(mode, button) {
+    simMode = mode;
+
+    document.querySelectorAll(".tab").forEach(tab => {
+        tab.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    $("lifePanel").style.display = mode === "life" ? "block" : "none";
+
+    if (mode === "life") {
+        pauseSimulation();
+        $("simStatus").textContent =
+            "Pilih contoh penerapan kapasitor di kehidupan sehari-hari.";
+        return;
+    }
+
+    updateSimulation();
+}
+
+function updateSimulation() {
+    const voltage = Number($("simVoltage").value);
+    const capacitance = Number($("simCap").value);
+
+    $("voltageText").textContent = voltage;
+    $("capText").textContent = capacitance;
+
+    renderSimulation();
+}
+
+function manualProgress() {
+    pauseSimulation();
+    simValue = Number($("simProgress").value) / 100;
+    renderSimulation();
+}
+
+function renderSimulation() {
+    const voltage = Number($("simVoltage").value);
+    const capacitance = Number($("simCap").value);
+
+    const level = Math.max(0, Math.min(1, simValue));
+
+    const charge = capacitance * voltage * level;
+    const energy = 0.5 * capacitance * 1e-6 *
+                   Math.pow(voltage * level, 2);
+
+    $("progressBar").style.width = (level * 100) + "%";
+    $("simProgress").value = level * 100;
+
+    $("simCharge").textContent =
+        formatNumber(charge) + " µC";
+
+    $("simEnergy").textContent =
+        formatNumber(energy * 1000) + " mJ";
+
+    $("simVoltageResult").textContent =
+        formatNumber(voltage * level) + " V";
+
+    $("platePositive").style.opacity = 0.2 + level * 0.8;
+    $("plateNegative").style.opacity = 0.2 + level * 0.8;
+
+    $("electrons").textContent =
+        level < 0.05 ? "Belum ada muatan tersimpan" :
+        "− " + "● ".repeat(Math.max(1, Math.round(level * 8)));
+
+    if (simMode === "discharge") {
+        $("simStatus").textContent =
+            `Pengosongan: sisa muatan sekitar ${formatNumber(level * 100)}%.`;
+    } else {
+        $("simStatus").textContent =
+            `Pengisian: kapasitor mencapai ${formatNumber(level * 100)}%.`;
+    }
+}
+
+function startSimulation() {
+    if (simMode === "life") return;
+
+    pauseSimulation();
+
+    if (simMode === "charge" && simValue >= 1) simValue = 0;
+    if (simMode === "discharge" && simValue <= 0) simValue = 1;
+
+    lastFrame = performance.now();
+
+    function frame(now) {
+        const dt = Math.min((now - lastFrame) / 1000, 0.1);
+        lastFrame = now;
+
+        if (simMode === "charge") {
+            simValue = Math.min(1, simValue + dt * 0.35);
+        } else {
+            simValue = Math.max(0, simValue - dt * 0.35);
+        }
+
+        renderSimulation();
+
+        if ((simMode === "charge" && simValue < 1) ||
+            (simMode === "discharge" && simValue > 0)) {
+            simTimer = requestAnimationFrame(frame);
+        } else {
+            simTimer = null;
+        }
+    }
+
+    simTimer = requestAnimationFrame(frame);
+}
+
+function pauseSimulation() {
+    if (simTimer !== null) {
+        cancelAnimationFrame(simTimer);
+        simTimer = null;
+    }
+}
+
+function resetSimulation() {
+    pauseSimulation();
+    simValue = simMode === "discharge" ? 1 : 0;
+    renderSimulation();
+}
+
+$("simVoltage").addEventListener("input", updateSimulation);
+$("simCap").addEventListener("input", updateSimulation);
+
+/* =========================================
+   KUIS INTERAKTIF
+========================================= */
+
+const quizData = [
+    {
+        question: "Apa fungsi utama kapasitor?",
+        options: [
+            "Menghasilkan energi dari ketiadaan",
+            "Menyimpan muatan dan energi listrik",
+            "Mengubah semua listrik menjadi panas",
+            "Menghilangkan seluruh tegangan"
+        ],
+        answer: 1,
+        explanation: "Kapasitor menyimpan muatan dan energi dalam medan listrik."
+    },
+    {
+        question: "Apa satuan kapasitansi dalam SI?",
+        options: ["Volt", "Ampere", "Farad", "Ohm"],
+        answer: 2,
+        explanation: "Satuan kapasitansi adalah farad (F)."
+    },
+    {
+        question: "Rumus untuk menghitung muatan kapasitor adalah ...",
+        options: ["Q = C × V", "Q = V / C", "Q = C + V", "Q = C / V"],
+        answer: 0,
+        explanation: "Muatan Q sama dengan kapasitansi C dikalikan tegangan V."
+    },
+    {
+        question: "Bagaimana kapasitansi total pada rangkaian paralel?",
+        options: [
+            "Selalu nol",
+            "Jumlah kapasitansi setiap kapasitor",
+            "Selalu lebih kecil daripada yang terkecil",
+            "Selalu sama dengan satu kapasitor"
+        ],
+        answer: 1,
+        explanation: "Pada rangkaian paralel, Cₜ = C₁ + C₂ + ..."
+    },
+    {
+        question: "Perangkat yang dapat memanfaatkan kapasitor adalah ...",
+        options: [
+            "Flash kamera",
+            "Buku tulis biasa",
+            "Penggaris kayu",
+            "Kertas tanpa rangkaian"
+        ],
+        answer: 0,
+        explanation: "Flash kamera dapat memanfaatkan pelepasan energi kapasitor dengan cepat."
+    }
+];
+
+let quizIndex = 0;
+let quizPoints = 0;
+let quizAnswered = false;
+
+function renderQuiz() {
+    const item = quizData[quizIndex];
+
+    $("quizProgress").textContent =
+        `Pertanyaan ${quizIndex + 1} dari ${quizData.length}`;
+
+    $("quizScore").textContent = `Skor: ${quizPoints}`;
+
+    $("quizBar").style.width =
+        ((quizIndex + 1) / quizData.length * 100) + "%";
+
+    $("quizQuestion").textContent = item.question;
+    $("quizOptions").innerHTML = "";
+    $("quizFeedback").textContent = "";
+    $("nextQuestion").style.display = "none";
+    $("restartQuiz").style.display = "none";
+
+    quizAnswered = false;
+
+    item.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.className = "quiz-option";
+        button.textContent =
+            String.fromCharCode(65 + index) + ". " + option;
+
+        button.onclick = () => chooseAnswer(index, button);
+
+        $("quizOptions").appendChild(button);
+    });
+}
+
+function chooseAnswer(index, button) {
+    if (quizAnswered) return;
+
+    quizAnswered = true;
+
+    const item = quizData[quizIndex];
+    const buttons = $("quizOptions").querySelectorAll("button");
+
+    buttons.forEach((b, i) => {
+        b.disabled = true;
+
+        if (i === item.answer) {
+            b.classList.add("correct");
+        }
+    });
+
+    if (index === item.answer) {
+        quizPoints++;
+        $("quizFeedback").textContent = "Benar! " + item.explanation;
+    } else {
+        button.classList.add("wrong");
+        $("quizFeedback").textContent = "Belum tepat. " + item.explanation;
+    }
+
+    $("quizScore").textContent = `Skor: ${quizPoints}`;
+
+    if (quizIndex < quizData.length - 1) {
+        $("nextQuestion").style.display = "inline-flex";
+    } else {
+        $("quizFeedback").textContent +=
+            ` Nilai akhir: ${quizPoints}/${quizData.length}.`;
+
+        $("restartQuiz").style.display = "inline-flex";
+    }
+}
+
+function nextQuiz() {
+    if (quizIndex < quizData.length - 1) {
+        quizIndex++;
+        renderQuiz();
+    }
+}
+
+function restartQuiz() {
+    quizIndex = 0;
+    quizPoints = 0;
+    renderQuiz();
+}
+
+/* =========================================
+   INISIALISASI WEBSITE
+========================================= */
+
+$("year").textContent = new Date().getFullYear();
+
+updateCalcMode();
+convertUnit();
+updateSimulation();
+renderQuiz();
+</script>
+
+</body>
+</html>
